@@ -105,12 +105,8 @@ class EmailTemplate extends Controller
 		{
 			// Make sure tokens is an array but not multidimensional
 			case 'simpleTokens':
-				if (!is_array($varValue))
-				{
-					$arrValue = deserialize($varValue, true);
-				}
-				
 				$arrTokens = array();
+				$arrValue = deserialize($varValue, true);
 				
 				foreach( $arrValue as $k => $v )
 				{
