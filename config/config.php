@@ -35,6 +35,6 @@
 $GLOBALS['BE_MOD']['system']['mail_templates'] = array
 (
 	'tables'		=> array('tl_mail_templates', 'tl_mail_template_languages'),
-	'icon'			=> 'system/modules/mail_templates/html/icon.png'
+	'icon'			=> 'system/modules/mailtemplates/html/icon.png'
 );
 
