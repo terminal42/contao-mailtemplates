@@ -281,24 +281,36 @@ class EmailTemplate extends Controller
 		$this->objEmail->priority = $objTemplate->priority;
 
 		// recipient_cc
-		$arrCc = trimsplit(',', $objTemplate->recipient_cc);
-		foreach ((array)$arrCC as $email)
+		$arrCc = array();
+		foreach ((array)trimsplit(',', $objTemplate->recipient_cc) as $email)
 		{
 			if ($email == '' || !$this->isValidEmailAddress($email))
 				continue;
 
+			$arrCc[] = $email;
 			$this->objEmail->sendCc($email);
 		}
 		
+		if (!empty($arrBcc))
+		{
+			$this->objEmail->sendCc($arrCc);
+		}
+		
 		// recipient_bcc
-		$arrBcc = trimsplit(',', $objTemplate->recipient_bcc);
-		foreach ((array)$arrBcc as $email)
+		$arrBcc = array();
+		foreach ((array)trimsplit(',', $objTemplate->recipient_bcc) as $email)
 		{
 			if ($email == '' || !$this->isValidEmailAddress($email))
 				continue;
 
-			$this->objEmail->sendBcc($email);
+			$arrBcc[] = $email;
 		}
+		
+		if (!empty($arrBcc))
+		{
+			$this->objEmail->sendBcc($arrBcc);
+		}
+		
 		
 		// template attachments
 		$this->arrAttachments = deserialize($objTemplate->attachments, true);
