@@ -86,7 +86,9 @@ class EmailTemplate extends Controller
 	public function __construct($intId, $strLanguage=null)
 	{
 		parent::__construct();
+
 		$this->import('Database');
+		$this->import('String');
 
 		$this->intId = $intId;
 		$this->initializeTemplate($strLanguage);
@@ -203,8 +205,8 @@ class EmailTemplate extends Controller
 		$arrData = $this->arrSimpleTokens;
 		$arrPlainData = array_map('strip_tags', $this->arrSimpleTokens);
 		
-		$this->objEmail->subject = $this->parseSimpleTokens($this->replaceInsertTags($objLanguage->subject), $arrPlainData);
-		$this->objEmail->text = $this->parseSimpleTokens($this->replaceInsertTags($objLanguage->content_text), $arrPlainData);
+		$this->objEmail->subject = $this->String->decodeEntities($this->parseSimpleTokens($this->replaceInsertTags($objLanguage->subject), $arrPlainData));
+		$this->objEmail->text = $this->String->decodeEntities($this->parseSimpleTokens($this->replaceInsertTags($objLanguage->content_text), $arrPlainData));
 
 		// html
 		if ($objLanguage->content_html != '')
