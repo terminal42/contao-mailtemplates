@@ -28,8 +28,9 @@
  * @version    $Id: modules.php 324 2011-07-26 16:07:53Z aschempp $
  */
 
+
 /**
  * Back end modules
  */
-$GLOBALS['TL_LANG']['MOD']['mail_templates'] = array('E-Mail Templates', 'Erstellen und bearbeiten Sie E-Mail Templates welche in anderen Erweiterungen verwendet werden können.');
+$GLOBALS['TL_LANG']['MOD']['mail_templates'] = array('E-Mail Vorlagen', 'Erstellen und bearbeiten Sie E-Mail Vorlagen welche in anderen Erweiterungen verwendet werden können.');
 
