@@ -205,8 +205,18 @@ class EmailTemplate extends Controller
 		$arrData = $this->arrSimpleTokens;
 		$arrPlainData = array_map('strip_tags', $this->arrSimpleTokens);
 		
-		$this->objEmail->subject = $this->String->decodeEntities($this->parseSimpleTokens($this->replaceInsertTags($objLanguage->subject), $arrPlainData));
-		$this->objEmail->text = $this->String->decodeEntities($this->parseSimpleTokens($this->replaceInsertTags($objLanguage->content_text), $arrPlainData));
+		$strSubject = $objLanguage->subject;
+		$strSubject = $this->replaceInsertTags($strSubject);
+		$strSubject = $this->parseSimpleTokens($strSubject, $arrPlainData);
+		$strSubject = $this->String->decodeEntities($strSubject);
+		$this->objEmail->subject = $strSubject;
+		
+		$strText = $objLanguage->content_text;
+		$strText = $this->replaceInsertTags($strText);
+		$strText = $this->parseSimpleTokens($strText, $arrPlainData);
+		$strText = $this->convertRelativeUrls($strText, '', true);
+		$strText = $this->String->decodeEntities($strText);
+		$this->objEmail->text = $strText;
 
 		// html
 		if ($objLanguage->content_html != '')
@@ -233,7 +243,9 @@ class EmailTemplate extends Controller
 			// Prevent parseSimpleTokens from stripping important HTML tags
 			$GLOBALS['TL_CONFIG']['allowedTags'] .= '<doctype><html><head><meta><style><body>';
 			$strHtml = str_replace('<!DOCTYPE', '<DOCTYPE', $objTemplate->parse());
-			$strHtml = $this->parseSimpleTokens($this->replaceInsertTags($strHtml), $arrData);
+			$strHtml = $this->replaceInsertTags($strHtml);
+			$strHtml = $this->parseSimpleTokens($strHtml, $arrData);
+			$strHtml = $this->convertRelativeUrls($strHtml, '', true);
 			$strHtml = str_replace('<DOCTYPE', '<!DOCTYPE', $strHtml);
 
 			// Parse template
