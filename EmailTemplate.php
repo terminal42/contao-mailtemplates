@@ -213,14 +213,12 @@ class EmailTemplate extends Controller
 		$arrPlainData = array_map('strip_tags', $this->arrSimpleTokens);
 		
 		$strSubject = $objLanguage->subject;
-		$strSubject = $this->replaceInsertTags($strSubject);
-		$strSubject = $this->parseSimpleTokens($strSubject, $arrPlainData);
+		$strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
 		$strSubject = $this->String->decodeEntities($strSubject);
 		$this->objEmail->subject = $strSubject;
 		
 		$strText = $objLanguage->content_text;
-		$strText = $this->replaceInsertTags($strText);
-		$strText = $this->parseSimpleTokens($strText, $arrPlainData);
+		$strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
 		$strText = $this->convertRelativeUrls($strText, '', true);
 		$strText = $this->String->decodeEntities($strText);
 		$this->objEmail->text = $strText;
@@ -250,8 +248,7 @@ class EmailTemplate extends Controller
 			// Prevent parseSimpleTokens from stripping important HTML tags
 			$GLOBALS['TL_CONFIG']['allowedTags'] .= '<doctype><html><head><meta><style><body>';
 			$strHtml = str_replace('<!DOCTYPE', '<DOCTYPE', $objTemplate->parse());
-			$strHtml = $this->replaceInsertTags($strHtml);
-			$strHtml = $this->parseSimpleTokens($strHtml, $arrData);
+			$strHtml = $this->recursiveReplaceTokensAndTags($strHtml, $arrData);
 			$strHtml = $this->convertRelativeUrls($strHtml, '', true);
 			$strHtml = str_replace('<DOCTYPE', '<!DOCTYPE', $strHtml);
 
@@ -342,7 +339,7 @@ class EmailTemplate extends Controller
 	
 	
 	/**
-	 * Recursivly implode an array
+	 * Recursively implode an array
 	 * @param string
 	 * @param array
 	 * @return string
@@ -364,6 +361,30 @@ class EmailTemplate extends Controller
 		}
 
 		return implode($strGlue, $arrReturn);
+	}
+
+
+	/**
+	 * Recursively replace the simple tokens and the insert tags
+	 * @param string
+	 * @param array tokens
+	 * @return string
+	 */
+	protected function recursiveReplaceTokensAndTags($strText, $arrTokens)
+	{
+		// first parse the tokens as they might have if-else clauses
+		$strText = $this->parseSimpleTokens($strText, $arrTokens);
+
+		// then replace the insert tags
+		$strText = $this->replaceInsertTags($strText);
+
+		// check if the inserttags have returned a simple token or an insert tag to parse
+		if (strpos($strText, '##') !== false || strpos($strText, '{{') !== false)
+		{
+			$strText = $this->recursiveReplaceTokensAndTags($strText, $arrTokens);
+		}
+
+		return $strText;
 	}
 }
 
