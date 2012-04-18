@@ -373,18 +373,24 @@ class EmailTemplate extends Controller
 	protected function recursiveReplaceTokensAndTags($strText, $arrTokens)
 	{
 		// first parse the tokens as they might have if-else clauses
-		$strText = $this->parseSimpleTokens($strText, $arrTokens);
+		$strBuffer = $this->parseSimpleTokens($strText, $arrTokens);
 
 		// then replace the insert tags
-		$strText = $this->replaceInsertTags($strText);
+		$strBuffer = $this->replaceInsertTags($strBuffer);
 
 		// check if the inserttags have returned a simple token or an insert tag to parse
-		if (strpos($strText, '##') !== false || strpos($strText, '{{') !== false)
+		if (strpos($strBuffer, '##') !== false || strpos($strBuffer, '{{') !== false)
 		{
-			$strText = $this->recursiveReplaceTokensAndTags($strText, $arrTokens);
+			// Prevent infinite loop
+			if ($strBuffer == $strText)
+			{
+				return $strBuffer;
+			}
+
+			$strBuffer = $this->recursiveReplaceTokensAndTags($strBuffer, $arrTokens);
 		}
 
-		return $strText;
+		return $strBuffer;
 	}
 }
 
