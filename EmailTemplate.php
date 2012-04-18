@@ -131,9 +131,16 @@ class EmailTemplate extends Controller
 					$this->initializeTemplate($strLanguage);
 				}
 				break;
-			
+
 			default:
-				$this->objEmail->__set($strKey, $varValue);
+				if (is_object($varValue))
+				{
+					$this->$strKey = $varValue;
+				}
+				else
+				{
+					$this->objEmail->__set($strKey, $varValue);
+				}
 				break;
 		}
 	}
