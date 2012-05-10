@@ -306,7 +306,6 @@ class EmailTemplate extends Controller
 				continue;
 
 			$arrCc[] = $email;
-			$this->objEmail->sendCc($email);
 		}
 		
 		if (!empty($arrBcc))
