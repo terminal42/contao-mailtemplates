@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -37,7 +37,7 @@ class EmailTemplate extends Controller
 	 * @var object
 	 */
 	protected $objEmail;
-	
+
 	/**
 	 * Contain the simple tokens for this email
 	 * @var array
@@ -49,33 +49,33 @@ class EmailTemplate extends Controller
 	 * @var string
 	 */
 	protected $strLanguage;
-	
+
 	/**
 	 * Email template file
 	 * @var string
 	 */
 	protected $strTemplate;
-	
+
 	/**
 	 * Contao CSS file to include
 	 * @var string
 	 */
 	protected $strCssFile;
-	
+
 	/**
 	 * Array of attachments
 	 * @var array
 	 */
 	protected $arrAttachments;
-	
+
 	/**
 	 * if attachments have been added (= reset $objEmail if language changes)
 	 * @var bool
 	 */
 	protected $attachmentsDone = false;
-	
+
 	/**
-	 * the id of the mail template 
+	 * the id of the mail template
 	 * @var int
 	 */
 	protected $intId;
@@ -90,7 +90,7 @@ class EmailTemplate extends Controller
 		$this->import('Database');
 		$this->import('String');
 
-		$this->intId = $intId;
+		$this->intId = (int) $intId;
 		$this->initializeTemplate($strLanguage);
 	}
 
@@ -109,7 +109,7 @@ class EmailTemplate extends Controller
 			case 'simpleTokens':
 				$arrTokens = array();
 				$arrValue = deserialize($varValue, true);
-				
+
 				foreach( $arrValue as $k => $v )
 				{
 					if (is_array($v))
@@ -117,13 +117,13 @@ class EmailTemplate extends Controller
 						$arrTokens[$k] = $this->recursiveImplode(', ', $v);
 						continue;
 					}
-					
+
 					$arrTokens[$k] = $v;
 				}
-				
+
 				$this->arrSimpleTokens = $arrTokens;
 				break;
-			
+
 			case 'language':
 				$strLanguage = substr($varValue, 0, 2);
 				if ($strLanguage != $this->strLanguage)
@@ -157,14 +157,14 @@ class EmailTemplate extends Controller
 			case 'language':
 				return $this->strLanguage;
 				break;
-			
+
 			default:
 				return $this->objEmail->__get($strKey);
 				break;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Send to give address with tokens
 	 */
@@ -174,18 +174,18 @@ class EmailTemplate extends Controller
 		{
 			$this->language = $strLanguage;
 		}
-		
+
 		if (is_array($arrTokens))
 		{
 			$this->simpleTokens = $arrTokens;
 		}
-		
+
 		return $this->sendTo($varRecipients);
 	}
 
 
 	/**
-	 * Set the data and send the email. 
+	 * Set the data and send the email.
 	 * DON'T CALL THIS METHOD BEFORE YOU HAVE DONE ALL MODIFICATIONS ON THE MAIL TEMPLATE
 	 */
 	public function sendTo()
@@ -195,7 +195,7 @@ class EmailTemplate extends Controller
 		{
 			$this->strLanguage = $GLOBALS['TL_LANGUAGE'];
 		}
-		
+
 		// get the data for the active language
 		$objLanguage = $this->Database->prepare("SELECT * FROM tl_mail_template_languages WHERE pid={$this->intId} AND (language='{$this->strLanguage}' OR fallback='1') ORDER BY fallback")
 									  ->limit(1)
@@ -206,17 +206,17 @@ class EmailTemplate extends Controller
 			$this->log('No fallback language found for email template ID '.$this->intId, __METHOD__, TL_ERROR);
 			return false;
 		}
-		
+
 		$this->strLanguage = $objLanguage->language;
-		
+
 		$arrData = $this->arrSimpleTokens;
 		$arrPlainData = array_map('strip_tags', $this->arrSimpleTokens);
-		
+
 		$strSubject = $objLanguage->subject;
 		$strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
 		$strSubject = $this->String->decodeEntities($strSubject);
 		$this->objEmail->subject = $strSubject;
-		
+
 		$strText = $objLanguage->content_text;
 		$strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
 		$strText = $this->convertRelativeUrls($strText, '', true);
@@ -233,13 +233,13 @@ class EmailTemplate extends Controller
 			{
 				$buffer = file_get_contents(TL_ROOT . '/' . $this->strCssFile . '.css');
 				$buffer = preg_replace('@/\*\*.*\*/@Us', '', $buffer);
-	
+
 				$css  = '<style type="text/css">' . "\n";
 				$css .= trim($buffer) . "\n";
 				$css .= '</style>' . "\n";
 				$arrData['head_css'] = $css;
 			}
-			
+
 			$objTemplate = new FrontendTemplate($this->strTemplate);
 			$objTemplate->body = $objLanguage->content_html;
 			$objTemplate->charset = $GLOBALS['TL_CONFIG']['characterSet'];
@@ -256,7 +256,7 @@ class EmailTemplate extends Controller
 			$this->objEmail->html = $strHtml;
 			$this->objEmail->imageDir = TL_ROOT . '/';
 		}
-		
+
 		if (!$this->attachmentsDone)
 		{
 			foreach (array_merge($this->arrAttachments, deserialize($objLanguage->attachments, true)) as $file)
@@ -266,14 +266,14 @@ class EmailTemplate extends Controller
 					$this->objEmail->attachFile(TL_ROOT . '/' . $file);
 				}
 			}
-			
+
 			$this->attachmentsDone = true;
 		}
 
 		return $this->objEmail->sendTo(func_get_args());
 	}
-	
-	
+
+
 	/**
 	 * Initialize from template and reset attachments if language changes
 	 *
@@ -283,14 +283,14 @@ class EmailTemplate extends Controller
 	{
 		$this->objEmail = new Email();
 		$this->attachmentsDone = false;
-		
+
 		$objTemplate = $this->Database->execute("SELECT * FROM tl_mail_templates WHERE id=" . $this->intId);
 
 		if ($objTemplate->numRows < 1)
 		{
 			throw new Exception('No mail template with ID "' . $this->intId . '" found.');
 		}
-		
+
 		$this->strLanguage = $strLanguage;
 
 		// set the options
@@ -307,12 +307,12 @@ class EmailTemplate extends Controller
 
 			$arrCc[] = $email;
 		}
-		
+
 		if (!empty($arrBcc))
 		{
 			$this->objEmail->sendCc($arrCc);
 		}
-		
+
 		// recipient_bcc
 		$arrBcc = array();
 		foreach ((array)trimsplit(',', $objTemplate->recipient_bcc) as $email)
@@ -322,21 +322,21 @@ class EmailTemplate extends Controller
 
 			$arrBcc[] = $email;
 		}
-		
+
 		if (!empty($arrBcc))
 		{
 			$this->objEmail->sendBcc($arrBcc);
 		}
-		
-		
+
+
 		// template attachments
 		$this->arrAttachments = deserialize($objTemplate->attachments, true);
-		
+
 		$this->strTemplate = $objTemplate->template;
 		$this->strCssFile = $objTemplate->css_internal;
 	}
-	
-	
+
+
 	/**
 	 * Recursively implode an array
 	 * @param string
@@ -346,7 +346,7 @@ class EmailTemplate extends Controller
 	protected function recursiveImplode($strGlue, $arrPieces)
 	{
 		$arrReturn = array();
-		
+
 		foreach( $arrPieces as $varPiece )
 		{
 			if (is_array($varPiece))
