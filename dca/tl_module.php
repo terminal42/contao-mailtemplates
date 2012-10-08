@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -37,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['mail_template'] = array
 	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['mail_template'],
 	'inputType'			=> 'select',
 	'options_callback'	=> array('tl_module_mail_templates', 'getMailTemplates'),
-	'eval'				=> array('mandatory'=>true, 'includeBlankOption'=>true),
+	'eval'				=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['admin_mail_template'] = array
@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['admin_mail_template'] = array
 	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['admin_mail_template'],
 	'inputType'			=> 'select',
 	'options_callback'	=> array('tl_module_mail_templates', 'getMailTemplates'),
-	'eval'				=> array('mandatory'=>true, 'includeBlankOption'=>true),
+	'eval'				=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
 );
 
 
@@ -61,7 +61,7 @@ class tl_module_mail_templates extends Backend
 	{
 		$arrTemplates = array();
 		$objTemplates = $this->Database->execute("SELECT id,name,category FROM tl_mail_templates ORDER BY category, name");
-		
+
 		while( $objTemplates->next() )
 		{
 			if ($objTemplates->category == '')
@@ -73,7 +73,7 @@ class tl_module_mail_templates extends Backend
 				$arrTemplates[$objTemplates->category][$objTemplates->id] = $objTemplates->name;
 			}
 		}
-		
+
 		return $arrTemplates;
 	}
 }
