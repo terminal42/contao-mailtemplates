@@ -109,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_mail_template_languages'] = array
 			'inputType'				=> 'select',
 			'default'				=> $GLOBALS['TL_LANGUAGE'],
 			'options'				=> $this->getLanguages(),
-			'eval'					=> array('mandatory'=>true, 'doNotCopy'=>true, 'tl_class'=>'w50')
+			'eval'					=> array('mandatory'=>true, 'doNotCopy'=>true, 'chosen'=>true, 'tl_class'=>'w50')
 		),
 		'fallback' => array
 		(
