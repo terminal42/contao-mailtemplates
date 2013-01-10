@@ -36,7 +36,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['mail_template'] = array
 (
 	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['mail_template'],
 	'inputType'			=> 'select',
-	'options_callback'	=> array('tl_module_mail_templates', 'getMailTemplates'),
+	'options_callback'	=> array('EmailTemplateHelper', 'getMailTemplates'),
 	'eval'				=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
 );
 
@@ -44,37 +44,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['admin_mail_template'] = array
 (
 	'label'				=> &$GLOBALS['TL_LANG']['tl_module']['admin_mail_template'],
 	'inputType'			=> 'select',
-	'options_callback'	=> array('tl_module_mail_templates', 'getMailTemplates'),
+	'options_callback'	=> array('EmailTemplateHelper', 'getMailTemplates'),
 	'eval'				=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
 );
-
-
-class tl_module_mail_templates extends Backend
-{
-
-	/**
-	 * Get array of available mail templates
-	 *
-	 * @return array
-	 */
-	public function getMailTemplates()
-	{
-		$arrTemplates = array();
-		$objTemplates = $this->Database->execute("SELECT id,name,category FROM tl_mail_templates ORDER BY category, name");
-
-		while( $objTemplates->next() )
-		{
-			if ($objTemplates->category == '')
-			{
-				$arrTemplates[$objTemplates->id] = $objTemplates->name;
-			}
-			else
-			{
-				$arrTemplates[$objTemplates->category][$objTemplates->id] = $objTemplates->name;
-			}
-		}
-
-		return $arrTemplates;
-	}
-}
 
