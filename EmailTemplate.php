@@ -328,7 +328,7 @@ class EmailTemplate extends Controller
 			$arrCc[] = $email;
 		}
 
-		if (!empty($arrBcc))
+		if (!empty($arrCc))
 		{
 			$this->objEmail->sendCc($arrCc);
 		}
