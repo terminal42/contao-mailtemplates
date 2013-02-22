@@ -70,6 +70,12 @@ class EmailTemplate extends Controller
 	protected $intId;
 
 	/**
+	 * The data of the active language mail template
+	 * @var array
+	 */
+	protected $arrActiveLanguageData;
+
+	/**
 	 * @param int $intId
 	 */
 	public function __construct($intId, $strLanguage=null)
@@ -174,10 +180,10 @@ class EmailTemplate extends Controller
 
 
 	/**
-	 * Set the data and send the email.
-	 * DON'T CALL THIS METHOD BEFORE YOU HAVE DONE ALL MODIFICATIONS ON THE MAIL TEMPLATE
+	 * Initialize language of the mail
+	 * @return boolean
 	 */
-	public function sendTo()
+	public function initializeLanguage()
 	{
 		// Use current page language if none is set
 		if (!$this->strLanguage)
@@ -187,8 +193,8 @@ class EmailTemplate extends Controller
 
 		// get the data for the active language
 		$objLanguage = $this->Database->prepare("SELECT * FROM tl_mail_template_languages WHERE pid={$this->intId} AND (language='{$this->strLanguage}' OR fallback='1') ORDER BY fallback")
-									  ->limit(1)
-									  ->execute();
+			->limit(1)
+			->execute();
 
 		if (!$objLanguage->numRows)
 		{
@@ -196,24 +202,33 @@ class EmailTemplate extends Controller
 			return false;
 		}
 
+		$this->arrActiveLanguageData = $objLanguage->row();
 		$this->strLanguage = $objLanguage->language;
+		return true;
+	}
 
+
+	/**
+	 * Initialize email object data
+	 */
+	public function initializeEMailObject()
+	{
 		$arrData = $this->arrSimpleTokens;
 		$arrPlainData = array_map('strip_tags', $this->arrSimpleTokens);
 
-		$strSubject = $objLanguage->subject;
+		$strSubject = $this->arrActiveLanguageData['subject'];
 		$strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
 		$strSubject = $this->String->decodeEntities($strSubject);
 		$this->objEmail->subject = $strSubject;
 
-		$strText = $objLanguage->content_text;
+		$strText = $this->arrActiveLanguageData['content_text'];
 		$strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
 		$strText = $this->convertRelativeUrls($strText, '', true);
 		$strText = $this->String->decodeEntities($strText);
 		$this->objEmail->text = $strText;
 
 		// html
-		if ($objLanguage->content_html != '')
+		if ($this->arrActiveLanguageData['content_html'] != '')
 		{
 			$arrData['head_css'] = '';
 
@@ -230,7 +245,7 @@ class EmailTemplate extends Controller
 			}
 
 			$objTemplate = new FrontendTemplate($this->strTemplate);
-			$objTemplate->body = $objLanguage->content_html;
+			$objTemplate->body = $this->arrActiveLanguageData['content_html'];
 			$objTemplate->charset = $GLOBALS['TL_CONFIG']['characterSet'];
 			$objTemplate->css = '##head_css##';
 
@@ -248,7 +263,7 @@ class EmailTemplate extends Controller
 
 		if (!$this->attachmentsDone)
 		{
-			foreach (array_merge($this->arrAttachments, deserialize($objLanguage->attachments, true)) as $file)
+			foreach (array_merge($this->arrAttachments, deserialize($this->arrActiveLanguageData['attachments'], true)) as $file)
 			{
 				if (is_file(TL_ROOT . '/' . $file))
 				{
@@ -258,6 +273,22 @@ class EmailTemplate extends Controller
 
 			$this->attachmentsDone = true;
 		}
+	}
+
+
+	/**
+	 * Set the data and send the email.
+	 * DON'T CALL THIS METHOD BEFORE YOU HAVE DONE ALL MODIFICATIONS ON THE MAIL TEMPLATE
+	 * @return boolean
+	 */
+	public function sendTo()
+	{
+		if (!$this->initializeLanguage())
+		{
+			return false;
+		}
+
+		$this->initializeEMailObject();
 
 		return $this->objEmail->sendTo(func_get_args());
 	}
