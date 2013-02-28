@@ -159,6 +159,15 @@ class EmailTemplate extends Controller
 		}
 	}
 
+	/**
+	 * Adds an attachment
+	 * @param string path without TL_ROOT
+	 */
+	public function addAttachment($strPath)
+	{
+		$this->arrAttachments[] = $strPath;
+	}
+
 
 	/**
 	 * Send to give address with tokens
