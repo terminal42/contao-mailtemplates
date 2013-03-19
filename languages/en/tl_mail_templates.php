@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -30,15 +30,6 @@
 
 
 /**
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_mail_templates']['new']				= array('New template', 'Create a new email template');
-$GLOBALS['TL_LANG']['tl_mail_templates']['edit']			= array('Edit template', 'Edit email template ID %s');
-$GLOBALS['TL_LANG']['tl_mail_templates']['copy']			= array('Duplicate template', 'Duplicate email template ID %s');
-$GLOBALS['TL_LANG']['tl_mail_templates']['delete']			= array('Delete template', 'Delete email template ID %s');
-$GLOBALS['TL_LANG']['tl_mail_templates']['show']			= array('Email template details', 'Show details of email template ID %s');
-
-/**
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_mail_templates']['name']			= array('Template name', 'Bitte geben Sie einen Namen für diese Vorlage ein. Dieser Name wird nur für die interne Kennzeichnung verwendet.');
@@ -51,6 +42,16 @@ $GLOBALS['TL_LANG']['tl_mail_templates']['attachments']		= array('Attachments', 
 $GLOBALS['TL_LANG']['tl_mail_templates']['priority']		= array('Priority', 'Please select a priority.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['template'] 		= array('Template file', 'Please choose a template file.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['css_internal']	= array('Style sheet', 'Select a CSS file from Contao\'s style sheet manager.');
+
+/**
+ * Buttons
+ */
+$GLOBALS['TL_LANG']['tl_mail_templates']['new']         = array('New template', 'Create a new email template');
+$GLOBALS['TL_LANG']['tl_mail_templates']['edit']        = array('Edit template', 'Edit email template ID %s');
+$GLOBALS['TL_LANG']['tl_mail_templates']['editheader']  = array('Edit template settings', 'Edit the settings of email template ID %s');
+$GLOBALS['TL_LANG']['tl_mail_templates']['copy']        = array('Duplicate template', 'Duplicate email template ID %s');
+$GLOBALS['TL_LANG']['tl_mail_templates']['delete']      = array('Delete template', 'Delete email template ID %s');
+$GLOBALS['TL_LANG']['tl_mail_templates']['show']        = array('Email template details', 'Show details of email template ID %s');
 
 /**
  * References

@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -47,11 +47,12 @@ $GLOBALS['TL_LANG']['tl_mail_templates']['css_internal']	= array('interne CSS Da
 /**
  * Buttons
  */
-$GLOBALS['TL_LANG']['tl_mail_templates']['new']		= array('Neue Vorlage', 'Ein neue E-Mail Vorlage anlegen');
-$GLOBALS['TL_LANG']['tl_mail_templates']['edit']	= array('Vorlange bearbeiten', 'E-Mail Vorlange ID %s bearbeiten');
-$GLOBALS['TL_LANG']['tl_mail_templates']['copy']	= array('Vorlange duplizieren', 'E-Mail Vorlange ID %s duplizieren');
-$GLOBALS['TL_LANG']['tl_mail_templates']['delete']	= array('Vorlange löschen', 'E-Mail Vorlange ID %s löschen');
-$GLOBALS['TL_LANG']['tl_mail_templates']['show']	= array('Vorlagen details', 'Details der E-Mail Vorlage ID %s anzeigen');
+$GLOBALS['TL_LANG']['tl_mail_templates']['new']         = array('Neue Vorlage', 'Ein neue E-Mail Vorlage anlegen');
+$GLOBALS['TL_LANG']['tl_mail_templates']['edit']        = array('Vorlange bearbeiten', 'E-Mail Vorlange ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_mail_templates']['editheader']  = array('Vorlageeinstellungen bearbeiten', 'Einstellungen der E-Mail Vorlage ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_mail_templates']['copy']        = array('Vorlange duplizieren', 'E-Mail Vorlange ID %s duplizieren');
+$GLOBALS['TL_LANG']['tl_mail_templates']['delete']      = array('Vorlange löschen', 'E-Mail Vorlange ID %s löschen');
+$GLOBALS['TL_LANG']['tl_mail_templates']['show']        = array('Vorlagen details', 'Details der E-Mail Vorlage ID %s anzeigen');
 
 
 /**
