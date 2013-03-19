@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -46,6 +46,7 @@ $GLOBALS['TL_LANG']['tl_mail_template_languages']['attachments']	= array('Anhän
 $GLOBALS['TL_LANG']['tl_mail_template_languages']['new']		= array('Sprache hinzufügen', 'Eine neue Sprache für diese E-Mail Template anlegen');
 $GLOBALS['TL_LANG']['tl_mail_template_languages']['edit']		= array('Sprache bearbeiten', 'Sprache ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_mail_template_languages']['copy']		= array('Sprache duplizieren', 'Sprache ID %s duplizieren');
+$GLOBALS['TL_LANG']['tl_mail_template_languages']['cut']		= array('Sprache verschieben', 'Sprache ID %s verschieben');
 $GLOBALS['TL_LANG']['tl_mail_template_languages']['delete']		= array('Sprache löschen', 'Sprache ID %s löschen');
 $GLOBALS['TL_LANG']['tl_mail_template_languages']['show']		= array('Sprachdetails', 'Details der Sprache ID %s anzeigen');
 
