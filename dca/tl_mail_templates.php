@@ -135,7 +135,7 @@ $GLOBALS['TL_DCA']['tl_mail_templates'] = array
 			'exclude'				=> true,
 			'search'				=> true,
 			'inputType'				=> 'text',
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'w50', 'rgxp'=>'email')
+			'eval'					=> array('maxlength'=>255, 'tl_class'=>'w50')
 		),
 		'recipient_cc' => array
 		(
