@@ -339,7 +339,7 @@ class EmailTemplate extends Controller
     {
         $this->prepareEmail();
 
-        return $this->objEmail->sendTo(func_get_args());
+        return call_user_func_array(array($this->objEmail, 'sendTo'), func_get_args());
     }
 
     /**
