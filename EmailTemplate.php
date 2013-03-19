@@ -164,24 +164,14 @@ class EmailTemplate extends Controller
      */
     public function setTokens(array $varValue)
     {
-        $arrTokens = array();
+        $this->arrTokens = array();
+
         $arrValue = deserialize($varValue, true);
 
-        foreach( $arrValue as $k => $v )
+        foreach ($arrValue as $k => $v)
         {
-            if (is_array($v))
-            {
-                $arrTokens[$k] = $this->recursiveImplode(', ', $v);
-                continue;
-            }
-
-            $arrTokens[$k] = $v;
+            $this->addToken($k, $v);
         }
-
-        $this->arrTokens = $arrTokens;
-
-        // Must rebuild email content
-        $this->blnReady = false;
     }
 
     /**
