@@ -10,31 +10,29 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2011
- * @author     Leo Unglaub <leo@leo-unglaub.net>
- * @author     Andreas Schempp <andreas@schempp.ch>
+ * @copyright  terminal42 gmbh 2013
+ * @author     terminal42 <info@terminal42.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
- * @version    $Id: config.php 324 2011-07-26 16:07:53Z aschempp $
  */
+
 
 
 /**
- * Back end modules
+ * Register the classes
  */
-$GLOBALS['BE_MOD']['system']['mail_templates'] = array
+ClassLoader::addClasses(array
 (
-	'tables'		=> array('tl_mail_templates', 'tl_mail_template_languages'),
-	'icon'			=> 'system/modules/mailtemplates/assets/icon.png'
-);
-
+    'EmailTemplate'         => 'system/modules/mailtemplates/EmailTemplate.php',
+    'EmailTemplateHelper'   => 'system/modules/mailtemplates/EmailTemplateHelper.php'
+));
