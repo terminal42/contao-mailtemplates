@@ -346,7 +346,10 @@ class EmailTemplate extends Controller
     {
         $this->prepareEmail();
 
-        return call_user_func_array(array($this->objEmail, 'sendTo'), func_get_args());
+        // direct call doesn't work in PHP < 5.3
+        $args = func_get_args();
+
+        return call_user_func_array(array($this->objEmail, 'sendTo'), $args);
     }
 
     /**
