@@ -20,6 +20,11 @@
 
 class EmailTemplate extends Controller
 {
+    /**
+     * Default libraries
+     * @var array
+     */
+    protected $arrObjects = array();
 
     /**
      * the id of the mail template
@@ -93,6 +98,11 @@ class EmailTemplate extends Controller
      */
     public function __get($strKey)
     {
+        if (isset($this->arrObjects[$strKey]))
+        {
+            return $this->arrObjects[$strKey];
+        }
+
         return $this->objEmail->__get($strKey);
     }
 
@@ -106,7 +116,7 @@ class EmailTemplate extends Controller
     {
         if (is_object($varValue))
         {
-            $this->$strKey = $varValue;
+            $this->arrObjects[$strKey] = $varValue;
         }
         else
         {
