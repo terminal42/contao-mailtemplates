@@ -28,7 +28,7 @@ class EmailTemplate extends Controller
     protected $intId;
 
     /**
-     * The unterlying Contao Email object
+     * The underlying Contao Email object
      * @var object
      */
     protected $objEmail;
@@ -80,9 +80,6 @@ class EmailTemplate extends Controller
     public function __construct($intId, $strLanguage=null)
     {
         parent::__construct();
-
-        $this->import('Database');
-        $this->import('String');
 
         $this->intId = (int) $intId;
         $this->initializeTemplate();
@@ -247,27 +244,27 @@ class EmailTemplate extends Controller
         $strSenderName = $this->objTemplate->sender_name ? $this->objTemplate->sender_name : $GLOBALS['TL_ADMIN_NAME'];
         if ($strSenderName != '') {
             $strSenderName = $this->recursiveReplaceTokensAndTags($strSenderName, $arrPlainData);
-            $strSenderName = $this->String->decodeEntities($strSenderName);
+            $strSenderName = String::getInstance()->decodeEntities($strSenderName);
             $this->objEmail->fromName = $strSenderName;
         }
 
         // Set email sender address
         $strSenderAddress = $this->objTemplate->sender_address ? $this->objTemplate->sender_address : $GLOBALS['TL_ADMIN_EMAIL'];
         $strSenderAddress = $this->recursiveReplaceTokensAndTags($strSenderAddress, $arrPlainData);
-        $strSenderAddress = $this->String->decodeEntities($strSenderAddress);
+        $strSenderAddress = String::getInstance()->decodeEntities($strSenderAddress);
         $this->objEmail->from = $strSenderAddress;
 
         // Set email subject
         $strSubject = $this->objLanguage->subject;
         $strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
-        $strSubject = $this->String->decodeEntities($strSubject);
+        $strSubject = String::getInstance()->decodeEntities($strSubject);
         $this->objEmail->subject = $strSubject;
 
         // Set email text content
         $strText = $this->objLanguage->content_text;
         $strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
         $strText = $this->convertRelativeUrls($strText, '', true);
-        $strText = $this->String->decodeEntities($strText);
+        $strText = String::getInstance()->decodeEntities($strText);
         $this->objEmail->text = $strText;
 
         // Set optional email HTML content
@@ -369,7 +366,7 @@ class EmailTemplate extends Controller
      */
     protected function initializeTemplate()
     {
-        $objTemplate = $this->Database->execute("SELECT * FROM tl_mail_templates WHERE id=" . $this->intId);
+        $objTemplate = Database::getInstance()->execute("SELECT * FROM tl_mail_templates WHERE id=" . $this->intId);
 
         if ($objTemplate->numRows < 1)
         {
@@ -402,7 +399,7 @@ class EmailTemplate extends Controller
         }
 
         // get the data for the active language
-        $objLanguage = $this->Database->prepare("SELECT * FROM tl_mail_template_languages WHERE pid=? AND (language=? OR fallback='1') ORDER BY fallback")
+        $objLanguage = Database::getInstance()->prepare("SELECT * FROM tl_mail_template_languages WHERE pid=? AND (language=? OR fallback='1') ORDER BY fallback")
                                       ->limit(1)
                                       ->execute($this->intId, $this->strLanguage);
 
@@ -427,7 +424,7 @@ class EmailTemplate extends Controller
         {
             if ($strAddress != '') {
                 $strSubject = $this->recursiveReplaceTokensAndTags($strAddress, $arrTokens);
-                $strSubject = $this->String->decodeEntities($strAddress);
+                $strSubject = String::getInstance()->decodeEntities($strAddress);
 
                 // Address could become empty through invalid inserttag
                 if ($strAddress == '' || !$this->isValidEmailAddress($strAddress)) {
