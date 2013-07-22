@@ -268,14 +268,14 @@ class EmailTemplate extends Controller
         $strSubject = $this->objLanguage->subject;
         $strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
         $strSubject = String::getInstance()->decodeEntities($strSubject);
-        $this->objEmail->subject = $strSubject;
+        $this->objEmail->subject = strip_tags($strSubject);
 
         // Set email text content
         $strText = $this->objLanguage->content_text;
         $strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
         $strText = $this->convertRelativeUrls($strText, '', true);
         $strText = String::getInstance()->decodeEntities($strText);
-        $this->objEmail->text = $strText;
+        $this->objEmail->text = strip_tags($strText);
 
         // Set optional email HTML content
         if ($this->objLanguage->content_html != '')
