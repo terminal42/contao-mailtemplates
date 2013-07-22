@@ -248,28 +248,27 @@ class EmailTemplate extends Controller
 
         // Plain tokens are for subject, recipient etc.
         $arrData = $this->getTokens();
-        $arrPlainData = array_map('strip_tags', $arrData);
 
         // Set optional sender name
         $strSenderName = $this->objTemplate->sender_name ? $this->objTemplate->sender_name : $GLOBALS['TL_ADMIN_NAME'];
         if ($strSenderName != '') {
-            $strSenderName = $this->recursiveReplaceTokensAndTags($strSenderName, $arrPlainData);
-            $this->objEmail->fromName = $strSenderName;
+            $strSenderName = $this->recursiveReplaceTokensAndTags($strSenderName, $arrData);
+            $this->objEmail->fromName = strip_tags($strSenderName);
         }
 
         // Set email sender address
         $strSenderAddress = $this->objTemplate->sender_address ? $this->objTemplate->sender_address : $GLOBALS['TL_ADMIN_EMAIL'];
-        $strSenderAddress = $this->recursiveReplaceTokensAndTags($strSenderAddress, $arrPlainData);
-        $this->objEmail->from = $strSenderAddress;
+        $strSenderAddress = $this->recursiveReplaceTokensAndTags($strSenderAddress, $arrData);
+        $this->objEmail->from = strip_tags($strSenderAddress);
 
         // Set email subject
         $strSubject = $this->objLanguage->subject;
-        $strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
+        $strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrData);
         $this->objEmail->subject = strip_tags($strSubject);
 
         // Set email text content
         $strText = $this->objLanguage->content_text;
-        $strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
+        $strText = $this->recursiveReplaceTokensAndTags($strText, $arrData);
         $strText = $this->convertRelativeUrls($strText, '', true);
         $this->objEmail->text = strip_tags($strText);
 
@@ -432,7 +431,8 @@ class EmailTemplate extends Controller
         foreach ((array) trimsplit(',', $strRecipients) as $strAddress)
         {
             if ($strAddress != '') {
-                $strSubject = $this->recursiveReplaceTokensAndTags($strAddress, $arrTokens);
+                $strAddress = $this->recursiveReplaceTokensAndTags($strAddress, $arrTokens);
+                $strAddress = strip_tags($strAddress);
 
                 // Address could become empty through invalid inserttag
                 if ($strAddress == '' || !$this->isValidEmailAddress($strAddress)) {
