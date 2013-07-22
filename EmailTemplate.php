@@ -502,6 +502,8 @@ class EmailTemplate extends Controller
             $strBuffer = $this->recursiveReplaceTokensAndTags($strBuffer, $arrTokens);
         }
 
+        $strBuffer = $this->restoreBasicEntities($strBuffer);
+
         return $strBuffer;
     }
 }
