@@ -254,27 +254,23 @@ class EmailTemplate extends Controller
         $strSenderName = $this->objTemplate->sender_name ? $this->objTemplate->sender_name : $GLOBALS['TL_ADMIN_NAME'];
         if ($strSenderName != '') {
             $strSenderName = $this->recursiveReplaceTokensAndTags($strSenderName, $arrPlainData);
-            $strSenderName = String::getInstance()->decodeEntities($strSenderName);
             $this->objEmail->fromName = $strSenderName;
         }
 
         // Set email sender address
         $strSenderAddress = $this->objTemplate->sender_address ? $this->objTemplate->sender_address : $GLOBALS['TL_ADMIN_EMAIL'];
         $strSenderAddress = $this->recursiveReplaceTokensAndTags($strSenderAddress, $arrPlainData);
-        $strSenderAddress = String::getInstance()->decodeEntities($strSenderAddress);
         $this->objEmail->from = $strSenderAddress;
 
         // Set email subject
         $strSubject = $this->objLanguage->subject;
         $strSubject = $this->recursiveReplaceTokensAndTags($strSubject, $arrPlainData);
-        $strSubject = String::getInstance()->decodeEntities($strSubject);
         $this->objEmail->subject = strip_tags($strSubject);
 
         // Set email text content
         $strText = $this->objLanguage->content_text;
         $strText = $this->recursiveReplaceTokensAndTags($strText, $arrPlainData);
         $strText = $this->convertRelativeUrls($strText, '', true);
-        $strText = String::getInstance()->decodeEntities($strText);
         $this->objEmail->text = strip_tags($strText);
 
         // Set optional email HTML content
@@ -437,7 +433,6 @@ class EmailTemplate extends Controller
         {
             if ($strAddress != '') {
                 $strSubject = $this->recursiveReplaceTokensAndTags($strAddress, $arrTokens);
-                $strSubject = String::getInstance()->decodeEntities($strAddress);
 
                 // Address could become empty through invalid inserttag
                 if ($strAddress == '' || !$this->isValidEmailAddress($strAddress)) {
@@ -484,6 +479,9 @@ class EmailTemplate extends Controller
      */
     protected function recursiveReplaceTokensAndTags($strText, $arrTokens)
     {
+        // Must decode, tokens could be encoded
+        $strText = String::getInstance()->decodeEntities($strText);
+
         // first parse the tokens as they might have if-else clauses
         $strBuffer = $this->parseSimpleTokens($strText, $arrTokens);
 
