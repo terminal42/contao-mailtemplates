@@ -318,13 +318,13 @@ class EmailTemplate extends Controller
         }
 
         // Set CC recipients
-        $arrCc = $this->compileRecipients($this->objTemplate->recipient_cc, $arrPlainData);
+        $arrCc = $this->compileRecipients($this->objTemplate->recipient_cc, $arrData);
         if (!empty($arrCc)) {
             $this->objEmail->sendCc($arrCc);
         }
 
         // Set BCC recipients
-        $arrBcc = $this->compileRecipients($this->objTemplate->recipient_bcc, $arrPlainData);
+        $arrBcc = $this->compileRecipients($this->objTemplate->recipient_bcc, $arrData);
         if (!empty($arrBcc)) {
             $this->objEmail->sendBcc($arrBcc);
         }
