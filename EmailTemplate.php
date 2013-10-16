@@ -486,7 +486,7 @@ class EmailTemplate extends Controller
         $strBuffer = $this->parseSimpleTokens($strText, $arrTokens);
 
         // then replace the insert tags
-        $strBuffer = $this->replaceInsertTags($strBuffer);
+        $strBuffer = $this->replaceInsertTags($strBuffer, false);
 
         // check if the inserttags have returned a simple token or an insert tag to parse
         if (strpos($strBuffer, '##') !== false || strpos($strBuffer, '{{') !== false)
