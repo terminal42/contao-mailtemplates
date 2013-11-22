@@ -38,6 +38,7 @@ $GLOBALS['TL_LANG']['tl_mail_templates']['sender_name']		= array('Sender name', 
 $GLOBALS['TL_LANG']['tl_mail_templates']['sender_address']	= array('Sender address', 'Bitte geben Sie die Absende-E-Mail Adresse ein.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['recipient_cc']	= array('Send a CC to', 'Recipients that should receive a carbon copy of the mail. Separate multiple addresses with a comma.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['recipient_bcc']	= array('Send a BCC to', 'Recipients that should receive a blind carbon copy of the mail. Separate multiple addresses with a comma.');
+$GLOBALS['TL_LANG']['tl_mail_templates']['reply_to']	    = array('Reply to', 'Here you can enter the "reply to" e-mail address.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['attachments']		= array('Attachments', 'Select files you want to send in this email.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['priority']		= array('Priority', 'Please select a priority.');
 $GLOBALS['TL_LANG']['tl_mail_templates']['template'] 		= array('Template file', 'Please choose a template file.');

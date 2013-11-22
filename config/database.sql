@@ -7,9 +7,9 @@
 -- *                                                      *
 -- ********************************************************
 
--- 
+--
 -- Table `tl_mail_templates`
--- 
+--
 
 CREATE TABLE `tl_mail_templates` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -21,6 +21,7 @@ CREATE TABLE `tl_mail_templates` (
   `recipient_cc` text NULL,
   `recipient_bcc` text NULL,
   `attachments` blob NULL,
+  `reply_to` varchar(255) NOT NULL default '',
   `priority` int(1) unsigned NOT NULL default '0',
   `template` varchar(255) NOT NULL default '',
   `css_internal` varchar(255) NOT NULL default '',
@@ -29,9 +30,9 @@ CREATE TABLE `tl_mail_templates` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table `tl_mail_template_languages`
--- 
+--
 
 CREATE TABLE `tl_mail_template_languages` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -49,9 +50,9 @@ CREATE TABLE `tl_mail_template_languages` (
 
 -------------------------------------------------------------
 
--- 
+--
 -- Table `tl_module`
--- 
+--
 
 CREATE TABLE `tl_module` (
   `mail_template` int(10) NOT NULL default '0',

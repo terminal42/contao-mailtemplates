@@ -107,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_mail_templates'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'					=> '{title_legend},name,category;{email_legend},sender_name,sender_address,recipient_cc,recipient_bcc,attachments;{expert_legend:hide},priority,template,css_internal',
+		'default'					=> '{title_legend},name,category;{email_legend},sender_name,sender_address,recipient_cc,recipient_bcc,reply_to,attachments;{expert_legend:hide},priority,template,css_internal',
 	),
 
 	// Fields
@@ -160,6 +160,14 @@ $GLOBALS['TL_DCA']['tl_mail_templates'] = array
 			'search'				=> true,
 			'inputType'				=> 'textarea',
 			'eval'					=> array('rgxp'=>'extnd', 'style'=>'height:40px; width:314px', 'tl_class'=>'w50" style="height:auto')
+		),
+		'reply_to' => array
+		(
+			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['reply_to'],
+			'exclude'				=> true,
+			'search'				=> true,
+			'inputType'				=> 'text',
+			'eval'					=> array('maxlength'=>255, 'tl_class'=>'long clr')
 		),
 		'attachments' => array
 		(

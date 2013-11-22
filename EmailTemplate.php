@@ -272,6 +272,11 @@ class EmailTemplate extends Controller
         $strText = $this->convertRelativeUrls($strText, '', true);
         $this->objEmail->text = strip_tags($strText);
 
+        // Set "reply to" email address
+        $strReplyAddress = $this->objTemplate->reply_to ? $this->objTemplate->reply_to : $GLOBALS['TL_ADMIN_EMAIL'];
+        $strReplyAddress = $this->recursiveReplaceTokensAndTags($strReplyAddress, $arrData);
+        $this->objEmail->replyTo(strip_tags($strReplyAddress));
+
         // Set optional email HTML content
         if ($this->objLanguage->content_html != '')
         {
