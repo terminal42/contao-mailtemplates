@@ -32,203 +32,203 @@
 $GLOBALS['TL_DCA']['tl_mail_templates'] = array
 (
 
-	// Config
-	'config' => array
-	(
-		'dataContainer'				=> 'Table',
-		'ctable'					=> array('tl_mail_template_languages'),
-		'switchToEdit'				=> true,
-		'enableVersioning'			=> true,
-	),
+    // Config
+    'config' => array
+    (
+        'dataContainer'         => 'Table',
+        'ctable'                => array('tl_mail_template_languages'),
+        'switchToEdit'          => true,
+        'enableVersioning'      => true,
+    ),
 
-	// List
-	'list' => array
-	(
-		'sorting' => array
-		(
-			'mode'					=> 1,
-			'fields'				=> array('category', 'name'),
-			'flag'					=> 1,
-			'panelLayout'			=> 'filter;search,limit',
-		),
-		'label' => array
-		(
-			'fields'				=> array('name'),
-			'format'				=> '%s',
-		),
-		'global_operations' => array
-		(
-			'all' => array
-			(
-				'label'				=> &$GLOBALS['TL_LANG']['MSC']['all'],
-				'href'				=> 'act=select',
-				'class'				=> 'header_edit_all',
-				'attributes'		=> 'onclick="Backend.getScrollOffset();" accesskey="e"'
-			)
-		),
-		'operations' => array
-		(
-			'edit' => array
-			(
-				'label'				=> &$GLOBALS['TL_LANG']['tl_mail_templates']['edit'],
-				'href'				=> 'table=tl_mail_template_languages',
-				'icon'				=> 'edit.gif',
-				'attributes'        => 'class="contextmenu"'
-			),
-			'editheader' => array
-			(
-				'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['editheader'],
-				'href'              => 'act=edit',
-				'icon'              => 'header.gif',
-				'attributes'        => 'class="edit-header"'
-			),
-			'copy' => array
-			(
-				'label'				=> &$GLOBALS['TL_LANG']['tl_mail_templates']['copy'],
-				'href'				=> 'act=copy',
-				'icon'				=> 'copy.gif'
-			),
-			'delete' => array
-			(
-				'label'				=> &$GLOBALS['TL_LANG']['tl_mail_templates']['delete'],
-				'href'				=> 'act=delete',
-				'icon'				=> 'delete.gif',
-				'attributes'		=> 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
-			),
-			'show' => array
-			(
-				'label'				=> &$GLOBALS['TL_LANG']['tl_mail_templates']['show'],
-				'href'				=> 'act=show',
-				'icon'				=> 'show.gif'
-			)
-		)
-	),
+    // List
+    'list' => array
+    (
+        'sorting' => array
+        (
+            'mode'              => 1,
+            'fields'            => array('category', 'name'),
+            'flag'              => 1,
+            'panelLayout'       => 'filter;search,limit',
+        ),
+        'label' => array
+        (
+            'fields'            => array('name'),
+            'format'            => '%s',
+        ),
+        'global_operations' => array
+        (
+            'all' => array
+            (
+                'label'         => &$GLOBALS['TL_LANG']['MSC']['all'],
+                'href'          => 'act=select',
+                'class'         => 'header_edit_all',
+                'attributes'    => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+            )
+        ),
+        'operations' => array
+        (
+            'edit' => array
+            (
+                'label'         => &$GLOBALS['TL_LANG']['tl_mail_templates']['edit'],
+                'href'          => 'table=tl_mail_template_languages',
+                'icon'          => 'edit.gif',
+                'attributes'    => 'class="contextmenu"'
+            ),
+            'editheader' => array
+            (
+                'label'         => &$GLOBALS['TL_LANG']['tl_mail_templates']['editheader'],
+                'href'          => 'act=edit',
+                'icon'          => 'header.gif',
+                'attributes'    => 'class="edit-header"'
+            ),
+            'copy' => array
+            (
+                'label'         => &$GLOBALS['TL_LANG']['tl_mail_templates']['copy'],
+                'href'          => 'act=copy',
+                'icon'          => 'copy.gif'
+            ),
+            'delete' => array
+            (
+                'label'         => &$GLOBALS['TL_LANG']['tl_mail_templates']['delete'],
+                'href'          => 'act=delete',
+                'icon'          => 'delete.gif',
+                'attributes'    => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+            ),
+            'show' => array
+            (
+                'label'         => &$GLOBALS['TL_LANG']['tl_mail_templates']['show'],
+                'href'          => 'act=show',
+                'icon'          => 'show.gif'
+            )
+        )
+    ),
 
-	// Palettes
-	'palettes' => array
-	(
-		'default'					=> '{title_legend},name,category;{email_legend},sender_name,sender_address,recipient_cc,recipient_bcc,reply_to,attachments;{expert_legend:hide},priority,template,css_internal',
-	),
+    // Palettes
+    'palettes' => array
+    (
+        'default'               => '{title_legend},name,category;{email_legend},sender_name,sender_address,recipient_cc,recipient_bcc,reply_to,attachments;{expert_legend:hide},priority,template,css_internal',
+    ),
 
-	// Fields
-	'fields' => array
-	(
-		'name' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['name'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'text',
-			'eval'					=> array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
-		),
-		'category' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['category'],
-			'exclude'				=> true,
-			'filter'				=> true,
-			'inputType'				=> 'text',
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'w50')
-		),
-		'sender_name' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['sender_name'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'text',
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'w50')
-		),
-		'sender_address' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['sender_address'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'text',
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'w50')
-		),
-		'recipient_cc' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['recipient_cc'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'textarea',
-			'eval'					=> array('rgxp'=>'extnd', 'style'=>'height:40px; width:314px', 'tl_class'=>'w50" style="height:auto')
-		),
-		'recipient_bcc' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['recipient_bcc'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'textarea',
-			'eval'					=> array('rgxp'=>'extnd', 'style'=>'height:40px; width:314px', 'tl_class'=>'w50" style="height:auto')
-		),
-		'reply_to' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['reply_to'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'text',
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'long clr')
-		),
-		'attachments' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['attachments'],
-			'exclude'				=> true,
-			'search'				=> true,
-			'inputType'				=> 'fileTree',
-			'eval'					=> array('fieldType'=>'checkbox', 'files'=>true, 'filesOnly'=>true, 'tl_class'=>'clr'),
-		),
-		'priority' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['priority'],
-			'exclude'				=> true,
-			'filter'				=> true,
-			'inputType'				=> 'select',
-			'options'				=> array(1,2,3,4,5),
-			'default'				=> 3,
-			'reference'				=> &$GLOBALS['TL_LANG']['tl_mail_templates'],
-			'eval'					=> array('rgxp'=>'digit', 'tl_class'=>'w50'),
-		),
-		'template' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['template'],
-			'exclude'				=> true,
-			'filter'				=> true,
-			'inputType'				=> 'select',
-			'default'				=> 'mail_default',
-			'options'				=> $this->getTemplateGroup('mail_'),
-			'eval'					=> array('tl_class'=>'w50'),
-		),
-		'css_internal' => array
-		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_mail_templates']['css_internal'],
-			'exclude'				=> true,
-			'filter'				=> true,
-			'inputType'				=> 'select',
-			'options_callback'		=> array('tl_mail_templates', 'getCssFiles'),
-			'eval'					=> array('includeBlankOption'=>true, 'tl_class'=>'w50')
-		),
-	)
+    // Fields
+    'fields' => array
+    (
+        'name' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['name'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'text',
+            'eval'              => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+        ),
+        'category' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['category'],
+            'exclude'           => true,
+            'filter'            => true,
+            'inputType'         => 'text',
+            'eval'              => array('maxlength'=>255, 'tl_class'=>'w50')
+        ),
+        'sender_name' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['sender_name'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'text',
+            'eval'              => array('maxlength'=>255, 'tl_class'=>'w50')
+        ),
+        'sender_address' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['sender_address'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'text',
+            'eval'              => array('maxlength'=>255, 'tl_class'=>'w50')
+        ),
+        'recipient_cc' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['recipient_cc'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'textarea',
+            'eval'              => array('rgxp'=>'extnd', 'style'=>'height:40px; width:314px', 'tl_class'=>'w50" style="height:auto')
+        ),
+        'recipient_bcc' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['recipient_bcc'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'textarea',
+            'eval'              => array('rgxp'=>'extnd', 'style'=>'height:40px; width:314px', 'tl_class'=>'w50" style="height:auto')
+        ),
+        'reply_to' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['reply_to'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'text',
+            'eval'              => array('maxlength'=>255, 'tl_class'=>'long clr')
+        ),
+        'attachments' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['attachments'],
+            'exclude'           => true,
+            'search'            => true,
+            'inputType'         => 'fileTree',
+            'eval'              => array('fieldType'=>'checkbox', 'files'=>true, 'filesOnly'=>true, 'tl_class'=>'clr'),
+        ),
+        'priority' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['priority'],
+            'exclude'           => true,
+            'filter'            => true,
+            'inputType'         => 'select',
+            'options'           => array(1,2,3,4,5),
+            'default'           => 3,
+            'reference'         => &$GLOBALS['TL_LANG']['tl_mail_templates'],
+            'eval'              => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+        ),
+        'template' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['template'],
+            'exclude'           => true,
+            'filter'            => true,
+            'inputType'         => 'select',
+            'default'           => 'mail_default',
+            'options'           => $this->getTemplateGroup('mail_'),
+            'eval'              => array('tl_class'=>'w50'),
+        ),
+        'css_internal' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_mail_templates']['css_internal'],
+            'exclude'           => true,
+            'filter'            => true,
+            'inputType'         => 'select',
+            'options_callback'  => array('tl_mail_templates', 'getCssFiles'),
+            'eval'              => array('includeBlankOption'=>true, 'tl_class'=>'w50')
+        ),
+    )
 );
 
 
 class tl_mail_templates extends Backend
 {
 
-	/**
-	 * Return all internal CSS Files for the select menu
-	 * @return array
-	 */
-	public function getCssFiles()
-	{
-		$arrStyleSheets = array();
-		$objStyleSheets = $this->Database->query("SELECT name, (SELECT name FROM tl_theme WHERE tl_style_sheet.pid=tl_theme.id) AS theme FROM tl_style_sheet ORDER BY theme, name");
+    /**
+     * Return all internal CSS Files for the select menu
+     * @return array
+     */
+    public function getCssFiles()
+    {
+        $arrStyleSheets = array();
+        $objStyleSheets = $this->Database->query("SELECT name, (SELECT name FROM tl_theme WHERE tl_style_sheet.pid=tl_theme.id) AS theme FROM tl_style_sheet ORDER BY theme, name");
 
-		while ($objStyleSheets->next())
-		{
-			$arrStyleSheets[$objStyleSheets->theme][$objStyleSheets->name] = $objStyleSheets->name;
-		}
+        while ($objStyleSheets->next())
+        {
+            $arrStyleSheets[$objStyleSheets->theme][$objStyleSheets->name] = $objStyleSheets->name;
+        }
 
-		return $arrStyleSheets;
-	}
+        return $arrStyleSheets;
+    }
 }
 
